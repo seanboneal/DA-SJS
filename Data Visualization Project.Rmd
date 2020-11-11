@@ -1,0 +1,60 @@
+---
+title: "Data Visualization Project"
+author: "Sean O'Neal"
+date: "9/9/2020"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+database
+```
+
+```{r}
+cumulative
+```
+
+## Scatter Plot: SpaceX Missons from 2006-Present
+
+```{r}
+ggplot(data = database, mapping = aes(x = Flight.Number, y = Payload.Mass..kg., color = Mission.Outcome)) + geom_point() + labs(x = "Flight Number", y = "Payload Mass (kg)", title = "SpaceX Missions: 2006-Present", subtitle = "Rise in Payload Mass Since the First Flight", caption = "Source: database") + theme(axis.text.x = element_text(angle=90,hjust=1,vjust=0.5))
+```
+
+### Insight:
+
+#### The graphing of this data helped show how the SpaceX missions gained payload mass and improved their success rate over time. The colour asthetic helped distinguish which missions were a failure and which missions were a success, and any viewer can see that over time, the missions became more successful. The scatter plot in itself also shows how the payload of the missions increased over time because as the flight number (time) increased, the payload mass also generally increased. This data visualization was overall very helpful in illustrating the positive trend of Payload Mass over time. 
+
+
+## Bar Chart: Kepler Telescope Exoplanet Search Results
+
+```{r}
+ggplot(data = cumulative, mapping = aes(x = koi_score, color = koi_pdisposition)) + geom_bar(position = "identity") + labs(x = "Koi Score", y = "Count", title = "Kepler Telescope Exoplanet Search Results", subtitle = "How the Koi score affects a planet's candidacy", caption = "Source: cumulative") + theme(axis.text.x = element_text(angle=90,hjust=1,vjust=0.5))
+```
+
+### Insight:
+
+#### The graphing of this data helped me determine how the Koi (Kepler Object of Interest) score from the Kepler Telescope affects a planet's candidacy as a possible habitable planet. As you can see, once the Koi score goes above .5 the planet is generally considered a candidate, but once a planet's Koi score goes below .5, the planet is no longer a candidate. The addition of the colour aesthetic concerning the y axis of "count" also helps show that there are almost half as many candidates as there are false positives. The "count" and colour aesthetic also show that there is a surprising number of possible habitable planet candidates that received a perfect Koi score of 1.00.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

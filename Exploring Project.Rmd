@@ -1,0 +1,235 @@
+---
+title: "exploring"
+author: "Sean O'Neal"
+date: "October 30, 2020"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Load the necessary libraries
+```{r}
+library(tidyverse)
+```
+
+Take a look inside your dataset
+```{r}
+listings
+```
+
+### Variation
+
+Perform an analysis of the variation in the "neighbourhood" column. 
+
+```{r}
+ggplot(data = listings, mapping = aes(x = neighbourhood)) + geom_bar() + coord_flip()
+```
+
+* Which values are the most common? Why?
+The most common values are "De Baarsjes - Oud-West," "De Pijp - Rivierenbuurt," and "Centrum-West." They are the most common values because "De Baarsjes" is the stereotypical Amsterdam neighborhood with canals, bridges, and little shops everywhere, "De Pijp" is a nice neighborhood that is inside the inner highway loop and close to downtown, and "Centrum-West" is the inner heart of the city, with more canals, upscale stores and businesses, and historical value. 
+
+* Which values are rare? Why? Does that match your expectations?
+
+The values that are rare are "Osdorp," "Bijlmer-Oost," and "Bijlmer Centrum." "Osdorp" is just a housing neighborhood with huge numbers of apartment complexes and is not a very nice neighborhood. "Bijlmer-Oost" is another neighborhood outside of the city made up of only apartment complexes, and it is not a nice neighborhood either. "Bijlmer Centrum" is close to "Bijlmer-Oost" and it is also outside of the city and made up of apartament complexes. 
+
+* Can you see any unusual patterns? What might explain them?
+
+There are no unusual patterns because the neighborhoods with the most rentals are the nice, fun, and touristy neighborhoods while the neighborhoods with the least values are not nice neighborhoods and far out of the city. 
+
+Perform an analysis of the variation in the "room_type" column. 
+
+```{r}
+ggplot(data = listings, mapping = aes(x = room_type)) + geom_bar()
+```
+
+* Which values are the most common? Why?
+The most common values are an entire home/apt or a private room. This makes sense because travelers value their privacy, and AirBnb rentals are generally homes or apartments, so all of the rentals available would be a home/apt.
+
+* Which values are rare? Why? Does that match your expectations?
+
+The values that are rare are hotel rooms and shared rooms. This makes sense because most hotels wouldn't list their rooms on AirBnb, and AirBnb most likely doesn't list that many shared rooms. 
+
+* Can you see any unusual patterns? What might explain them?
+
+There are no unusual patterns in this section for me. I expected a lot of entire home/apt, and private rooms inside apartments or houses also makes sense because AirBNB is made up of individuals renting out their homes/apartments.
+
+Perform an analysis of the variation in the "price" column. Make sure to explore different "binwidth" values in your analysis.
+
+```{r}
+ggplot(data = listings) + geom_histogram(mapping = aes(x = price), binwidth = 5) + coord_cartesian(xlim = c(0, 1000))
+
+ggplot(data = listings) + geom_histogram(mapping = aes(x = price), binwidth = 10) + coord_cartesian(xlim = c(0, 1000))
+
+ggplot(data = listings) + geom_histogram(mapping = aes(x = price), binwidth = 3.5) + coord_cartesian(xlim = c(0, 1000))
+
+listings %>%
+  count(price) %>%
+  arrange(desc(n))
+  
+```
+
+* Which values are the most common? Why?
+
+The values that are most common are 150, 100, and 120. I believe they are the most common because they are around the average price per night of a hotel, so it would make sense that the people renting out their apartments would keep the prices similar to their competition. 
+
+* Which values are rare? Why? Does that match your expectations?
+
+The rare values are 5000, 4461, and 3000. This makes sense because most people won't want to rent an AirBNB apartment for over 3000 a night. 
+
+* Can you see any unusual patterns? What might explain them?
+
+I do not see any unusual patterns. The majority of the prices are between 50-250 per night, with some increases around 500 and greater for apartaments and houses that I'm assuming are nicer than the others. 
+
+Perform an analysis of the variation in the "minimum_nights" column. Make sure to explore different "binwidth" values in your analysis.
+
+```{r}
+ggplot(data = listings) + geom_histogram(mapping = aes(x = minimum_nights), binwidth = 10) + coord_cartesian(xlim = c(0, 1000))
+
+ggplot(data = listings) + geom_histogram(mapping = aes(x = minimum_nights), binwidth = 5) + coord_cartesian(xlim = c(0, 500))
+
+ggplot(data = listings) + geom_histogram(mapping = aes(x = minimum_nights), binwidth = 3) + coord_cartesian(xlim = c(0, 250))
+
+listings %>%
+  count(minimum_nights)
+```
+
+* Which values are the most common? Why?
+
+The most common values are 2 nights, 3 nights, and 1 night. This is because AirBNB is generally used as an alternative to hotels, and the average stay of a person on vacation can be around 1-3 days/nights. 
+
+* Which values are rare? Why? Does that match your expectations?
+
+The values that are rare are 1001 nights, 999 nights, and 500 nights. This makes sense because those time periods are all over a year or longer, the average person isn't going to rent from someone on AirBNB for that long, and this matches my expectations.
+
+* Can you see any unusual patterns? What might explain them?
+
+Some unusual patterns I see are that people stayed for 60 nights or 90 nights. This might be explained by the fact that the people renting for that period of time are there because of work reasons, and instead of renting an apartment from the facility they rent from the owner instead. 
+
+Perform an analysis of the variation in the "number_of_reviews" column. Make sure to explore different "binwidth" values in your analysis.
+
+```{r}
+ggplot(data = listings) + geom_histogram(mapping = aes(x = number_of_reviews), binwidth = 10) + coord_cartesian(xlim = c(0, 1000))
+
+ggplot(data = listings) + geom_histogram(mapping = aes(x = number_of_reviews), binwidth = 5) + coord_cartesian(xlim = c(0, 1000))
+
+ggplot(data = listings) + geom_histogram(mapping = aes(x = number_of_reviews), binwidth = 3) + coord_cartesian(xlim = c(0, 1000))
+
+listings %>%
+  count(number_of_reviews)
+```
+
+* Which values are the most common? Why?
+
+The most common values are 0 reviews, 1 review, and 2 reviews. This makes sense because most people don't want to take the time out of their day to leave a review after a common experience, so many move on with their lives and forget about it. 
+
+* Which values are rare? Why? Does that match your expectations?
+
+The rare values are anything ranging from 499 reviews to 854 reviews. This makes sense because I wouldn't expect all of the listings on AirBNB to have a huge number of reviews, so only a few (I'm assuming stellar) properties actually have a large number of reviews. 
+
+* Can you see any unusual patterns? What might explain them?
+
+I see no unusual patterns. I expected that as the number of reviews went up, the count would go down and that was the case for this variable.
+
+Perform an analysis of the variation in the "availability_365" column. Make sure to explore different "binwidth" values in your analysis.
+
+```{r}
+ggplot(data = listings) + geom_histogram(mapping = aes(x = availability_365), binwidth = 10) + coord_cartesian(xlim = c(0, 1000))
+
+ggplot(data = listings) + geom_histogram(mapping = aes(x = availability_365), binwidth = 5) + coord_cartesian(xlim = c(0, 1000))
+
+ggplot(data = listings) + geom_histogram(mapping = aes(x = availability_365), binwidth = 3) + coord_cartesian(xlim = c(0, 1000))
+
+listings %>%
+  count(availability_365) %>%
+  arrange(desc(n))
+```
+
+* Which values are the most common? Why?
+
+The most common values are 0, 365, and 364. 0 is the most common because the AirBNB's are either booked or not available throughout the year, and 365 and 364 are the second most because some may sit on the AirBNB website for a long time with no takers. 
+
+* Which values are rare? Why? Does that match your expectations?
+
+The rarest values are 297, 211, and 294. This makes sense because I wouldn't expect the apartments/houses on AirBNB to be available throughout a large number of days of the year. 
+
+* Can you see any unusual patterns? What might explain them?
+
+The only unusual pattern that I saw was the fact that 365 and 364 were the second most common values. The only explanation that I can think of are that some people leave their listings up for the entire year and no one rents them.
+
+What seems to be the most common name (of a person) in the city you selected?
+
+```{r}
+listings %>%
+  count(host_name) %>%
+  arrange(desc(n))
+```
+Martijn, Wendy and Bram, and Jasper are the most common host names. 
+
+Do the number of reviews affect the price of the Airbnb?
+
+```{r}
+listings_v2 <- filter(listings, price <= 2500)
+  
+listings_v2
+
+ggplot(data = listings_v2, mapping = aes(x = number_of_reviews, y = price)) + geom_point() + geom_smooth()
+```
+The number of reviews does not affect the price, there is no correlation.
+
+What type of room tends to have the highest Airbnb price?
+
+```{r}
+ ggplot(data = listings, mapping = aes(x = room_type, y = price)) + geom_point() + coord_cartesian(ylim = c(0, 10000))
+```
+
+The type of room that tends to have the highest Airbnb price is an entire home/apartment. This makes sense because you are paying more for ultimate privacy.
+
+What neighborhoods tend to have the highest Airbnb price?
+
+```{r}
+ggplot(data = listings, mapping = aes(x = neighbourhood, y = price)) + geom_boxplot() + coord_flip()
+```
+
+The neighborhoods that tend to have the most expensive Airbnb price are Centrum-West and Centrum-Oost.
+
+
+The neighborhood that I would want to buy a property in is Centrum-West because it is one of the nicest, most central neighborhoods in Amsterdam. It has some competition but not too much, and tourists will always want to stay in central Amsterdam.
+
+
+Average price/night for Airbnb in centrum West.
+```{r}
+Centrum <- group_by(listings, neighbourhood) %>%
+  summarize(avg_price = mean(price)) 
+
+Centrum
+
+
+```
+Avg price = 188.38
+
+Average number of available nights:
+```{r}
+Centrum <- group_by(listings, neighbourhood) %>%
+summarize(nights_per_year = mean(availability_365))
+
+Centrum
+```
+
+Avg nights = 97.83 nights
+
+
+Scenario: Property costs 4,156,204 Dollars. Make $188 per night for 98 hours out of the year. 18,424 Dollars per year. 4,156,204 Dollars/18,424 Dollars
+
+It would take 225 years for me to break even. 
+
+
+
+
+
+
+
+
+
+
